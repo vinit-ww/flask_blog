@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+{% block content %}
+    <h4>Title: {{ post.title }} <br/></h4>
+    <h4> Author: {{ post.author }} <br/></h4>
+    <h4>Content: {{ post.content }}</h4>
+    <h2>New Comment</h2>
+    <div class = "col-md-9">
+    <form method="POST" action="/post/{{post.id}}/comment">
+        {{ form.csrf_token }}
+        {{ form.content.label }} {{ form.content(size=30, class="form-control") }}
+        <br/>
+        <input type="submit" value="Submit", class = "btn btn-primary">
+    </form>
+    </div>
+    <div class="col-md-6">
+        <br/>
+        {% if post.comments  %}
+            <h2>Comments</h2>
+            {% for comment in post.comments %}
+                <p> {{ comment.content }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}

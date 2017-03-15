@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class = "col-md-3">
+        <form method="POST" action="/posts">
+            {{ form.csrf_token }}
+            {{ form.title.label }} {{ form.title(size=20, class="form-control") }}
+            {{ form.author.label }} {{ form.author(size=20, class="form-control") }}
+            {{ form.content.label }} {{ form.content(size=20, class="form-control") }}
+            <br/>
+            <input type="submit" value="Submit", class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

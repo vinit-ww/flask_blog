@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+    {% endblock %}
+  </head>
+  <body>
+        <nav class="navbar navbar-inverse">
+            <div class = "navbar-header">
+                <a class="navbar-brand" href="#">POSTER</a>
+                <ul class="nav navbar-nav">
+                        {% if current_user.is_authenticated %}
+                            <li class="active"><a href="#">Welcome {{ current_user.email.split('@')[0]}}</a></li>
+                            <li class="active"><a href= "{{url_for('new_post')}}" class="active">New Post</a></li>
+                            <!-- <li class="active"><a href="{{url_for('logout')}}">Logout</li> -->
+                            <li><a href="{{url_for('upload_image')}}">Upload</a></li>
+                        {% else %}
+                            <li class="active"><a href="{{url_for('login')}}">Login</a></li> 
+                            <li><a href="{{url_for('register')}}">Register</a></li>
+                        {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div class = "container">
+                {% block flash%} 
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class= "alert alert-success">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                {% endblock %}
+                {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>
